@@ -17,6 +17,7 @@ frontend/.env.*.local
 frontend/npm-debug.log
 frontend/yarn-error.log
 frontend/.DS_Store
+frontend/next-env.d.ts
 
 # IDE
 .vscode/
@@ -32,4 +33,4 @@ Thumbs.db
 # Root
 .env
 .env.local
-DEPLOYMENT.mdfrontend/next-env.d.ts
+DEPLOYMENT.md
