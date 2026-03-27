@@ -1,0 +1,30 @@
+name: Backend Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r backend/requirements.txt
+        pip install pytest
+    
+    - name: Lint with flake8
+      run: |
+        pip install flake8
+        flake8 backend/ --count --select=E9,F63,F7,F82 --show-source --statistics
+      continue-on-error: true
+    
+    - name: Test imports
+      run: python -c "from backend.main import app; from backend.llm_handler import LLMHandler; print('✓ Imports successful')"
