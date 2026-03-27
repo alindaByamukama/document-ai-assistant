@@ -29,8 +29,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize LLM
-llm = LLMHandler()
+# Initialize LLM (lazy loading - only when needed)
+llm = None
+
+def get_llm():
+    global llm
+    if llm is None:
+        llm = LLMHandler()
+    return llm
+
 
 # Uploads folder
 UPLOAD_DIR = Path("uploads")
@@ -109,7 +116,9 @@ async def process_document(file: UploadFile = File(...)):
         extracted_text = extracted_text[:5000]
         
         # Analyze with LLM
-        analysis = await llm.analyze(extracted_text)
+        # Get or initialize LLM
+        llm_handler = get_llm()
+        analysis = await llm_handler.analyze(extracted_text)
         
         return DocumentAnalysis(
             filename=file.filename,
