@@ -12,7 +12,7 @@ I built a full-stack web app that lets users upload documents (PDF, DOCX, TXT) a
 - **Backend:** FastAPI + Python
 - **Document Processing:** LangChain document loaders (PyPDFLoader, Docx2txtLoader, TextLoader)
 - **AI/LLM:** OpenAI API (gpt-3.5-turbo)
-- **Deployment:** Vercel (frontend), Render (backend)
+- **Deployment:** Render (both frontend and backend)
 
 ## Why These Choices?
 
@@ -80,9 +80,6 @@ curl -X POST http://localhost:8000/process \
 
 ## Challenges & Solutions
 
-[Be honest about what went wrong and how you fixed it]
-
-Example:
 - **Unstructured library install issues:** Initially tried `unstructured[pdf,docx]` library but ran into system dependency issues. Pivoted to LangChain's simpler document loaders.
 - **OpenAI API key validation:** API key appeared active but had payment issues. Fixed by updating billing settings in OpenAI platform.
 - **DOCX file handling:** Missing `docx2txt` dependency. Added to requirements.txt.
@@ -111,16 +108,15 @@ document-ai-assistant/
 
 ## Deployment
 
-Backend deployed to: [your Render URL]
-Frontend deployed to: [your Vercel URL]
-
-See DEPLOYMENT.md for detailed steps.
+- **Backend:** https://document-ai-assistant-y94g.onrender.com
+- **Frontend:** https://document-ai-assistant-202603.onrender.com
+- **GitHub:** https://github.com/alindaByamukama/document-ai-assistant
 
 ## What I'd Do Differently
 
 - Set up tests from the start (would have caught issues faster)
-- Research dependencies more thoroughly upfront (there was difficulty choosing which libraries or packages to use for the document upload and processing)
-- Use environment-specific configs earlier (separate configs for dev/prod)
+- Research dependencies more thoroughly upfront before diving in with the first one found (there was difficulty choosing which libraries or packages to use for the document upload and processing)
+- Implement explicit environment-specific configs in code (dev/prod .env files with loader logic) rather than relying on platform-specific environment variables
 
 ## Learning Outcomes
 
