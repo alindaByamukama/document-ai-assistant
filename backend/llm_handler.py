@@ -43,20 +43,26 @@ class LLMHandler:
             input_variables=["document_text"],
             template="""Analyze this document and provide structured analysis.
 
-Respond ONLY with valid JSON (no markdown, no extra text, no preamble).
+        Respond ONLY with valid JSON (no markdown, no extra text, no preamble).
 
-Document:
-{document_text}
+        Document:
+        {document_text}
 
-Return this exact JSON structure:
-{{
-    "summary": "2-3 sentence summary of the document",
-    "title": "Document title if identifiable, otherwise 'Unknown'",
-    "author": "Document author if identifiable, otherwise 'Unknown'",
-    "main_topics": ["topic1", "topic2", "topic3", "topic4"]
-}}
+        Instructions:
+        - For title: Look for the first heading, main heading, or title text at the beginning. If none found, use 'Unknown'
+        - For author: Look for author name, byline, or author field. If none found, use 'Unknown'
+        - For summary: 2-3 sentences capturing the main idea
+        - For topics: Extract 3-4 main topics/themes from the document
 
-JSON Response:"""
+        Return this exact JSON structure:
+        {{
+            "summary": "2-3 sentence summary of the document",
+            "title": "Document title or first heading if identifiable, otherwise 'Unknown'",
+            "author": "Document author if identifiable, otherwise 'Unknown'",
+            "main_topics": ["topic1", "topic2", "topic3", "topic4"]
+        }}
+
+        JSON Response:"""
         )
         
         self.chain = LLMChain(llm=self.llm, prompt=self.prompt_template)
