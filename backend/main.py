@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 from langchain_community.document_loaders import PyPDFLoader, Docx2txtLoader, TextLoader
 
 # Import LLM handler
-from llm_handler import LLMHandler
+from .llm_handler import LLMHandler
 
 load_dotenv()
 
